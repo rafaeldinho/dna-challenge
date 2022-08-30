@@ -1,6 +1,7 @@
 module github/meli
-// +heroku goVersion 1.19
-go 1.19
+
+// +heroku goVersion 1.17
+go 1.17
 
 require (
 	cloud.google.com/go/firestore v1.6.1
