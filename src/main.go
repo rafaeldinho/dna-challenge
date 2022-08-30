@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
 
 	healthHandler "github/meli/src/health/handler"
 	healthUseCase "github/meli/src/health/usecase"
 
 	"github/meli/src/infrastructure/mongo"
-	envs "github/meli/src/infrastructure/viper"
 	"github/meli/src/infrastructure/web"
 	mutantHandler "github/meli/src/mutant/handler"
 	"github/meli/src/mutant/repository"
@@ -24,8 +24,7 @@ var logger = log.WithFields(log.Fields{
 
 func init() {
 	logger.Info("Staring app...")
-	envs.SetValuesOnEnvironment()
-	envs.PrintEnvs()
+	godotenv.Load("./.env")
 }
 
 func main() {
