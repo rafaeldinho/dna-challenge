@@ -5,7 +5,6 @@ import (
 	"os"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 
 	healthHandler "github/meli/src/health/handler"
 	healthUseCase "github/meli/src/health/usecase"
