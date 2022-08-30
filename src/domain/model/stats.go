@@ -1,7 +1,7 @@
 package model
 
 type Stats struct {
-	CountMutantADN *int64
-	CountHumanADN  *int64
+	CountMutantDNA int
+	CountHumanDNA  int
 	Ratio          float64
 }

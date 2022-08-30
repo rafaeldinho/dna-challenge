@@ -1,16 +1,25 @@
 package repository
 
 import (
-	"github/meli/src/shared"
+	ctx "context"
+	"github/meli/src/domain/model"
 )
 
-func (r *mutantRepository) GetCountByFlag(flag bool) (*int64, error) {
-	db := r.Conn.GetConnection()
+func (r *mutantRepository) GetCountByFlag() ([]model.Mutant, error) {
+	var listResult []model.Mutant
 
-	var count *int64
-
-	if tx := db.Table(shared.MutantTable).Count(count).Where("is_mutant = ?", flag); tx.Error != nil {
-		return count, tx.Error
+	iter := r.firestore.Collection("stats").Documents(ctx.Background())
+	docs, err := iter.GetAll()
+	if err != nil {
+		return listResult, err
 	}
-	return count, nil
+
+	for _, doc := range docs {
+		var mutant model.Mutant
+		doc.DataTo(&mutant)
+		listResult = append(listResult, mutant)
+	}
+
+	return listResult, nil
+
 }

@@ -5,10 +5,10 @@ import (
 	"strings"
 )
 
-func (m *mutantUsecase) IsMutant(dna []string) (*model.Mutant, error) {
+func (m *mutantUsecase) IsMutant(dna *model.RequestMutant) (*model.Mutant, error) {
 	// logica loca
 	mutant := &model.Mutant{
-		ADN:      strings.Join(dna[:], ","),
+		DNA:      strings.Join(dna.DNA[:], ","),
 		IsMutant: true,
 	}
 

@@ -2,18 +2,19 @@ package repository
 
 import (
 	"github/meli/src/domain/model"
-	"github/meli/src/infrastructure/sql"
+
+	"cloud.google.com/go/firestore"
 )
 
 type mutantRepository struct {
-	Conn sql.SqlRepository
+	firestore  *firestore.Client
 }
 
 type MutantRepository interface {
 	Save(mutant *model.Mutant) error
-	GetCountByFlag(flag bool) (*int64, error)
+	GetCountByFlag() ([]model.Mutant, error) 
 }
 
-func NewMutantRepository(Conn sql.SqlRepository) *mutantRepository {
-	return &mutantRepository{Conn: Conn}
+func NewMutantRepository(firestore  *firestore.Client) *mutantRepository {
+	return &mutantRepository{firestore: firestore}
 }
