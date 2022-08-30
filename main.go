@@ -24,7 +24,7 @@ var logger = log.WithFields(log.Fields{
 
 func init() {
 	logger.Info("Staring app...")
-	godotenv.Load("./.env")
+	godotenv.Load(".env")
 }
 
 func main() {
