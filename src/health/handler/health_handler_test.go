@@ -22,16 +22,14 @@ func TestNewHealthHandler(t *testing.T) {
 		rec := httptest.NewRecorder()
 		echoContext := e.NewContext(req, rec)
 
-		useCase.On("GetCheck").Return(mocks.MockHealthObject() )
+		useCase.On("GetCheck").Return(mocks.MockHealthObject())
 
-	
 		healthCheck := NewHealthHandler(e, useCase)
-
 
 		_ = healthCheck.HealthCheck(echoContext)
 
 		assert.Equal(t, jsonHealthCheck, rec.Body.String())
 		assert.Equal(t, http.StatusOK, rec.Code)
-		useCase.AssertCalled(t,"GetCheck")
+		useCase.AssertCalled(t, "GetCheck")
 	})
 }

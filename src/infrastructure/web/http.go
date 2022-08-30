@@ -10,6 +10,6 @@ func ServerInstance() *echo.Echo {
 	e.HideBanner = true
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
-	  }))
+	}))
 	return e
 }

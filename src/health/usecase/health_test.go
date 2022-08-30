@@ -14,7 +14,7 @@ func TestNewHealthUseCase(t *testing.T) {
 		healthCheck := NewHealthUseCase()
 
 		resutl := healthCheck.GetCheck()
-		mockResult := mocks.MockHealthObject() 
+		mockResult := mocks.MockHealthObject()
 
 		assert.Equal(t, resutl, mockResult)
 	})

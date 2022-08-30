@@ -1,15 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 
 	healthHandler "github/meli/src/health/handler"
 	healthUseCase "github/meli/src/health/usecase"
 	"github/meli/src/infrastructure/firestore"
+	envs "github/meli/src/infrastructure/viper"
 	"github/meli/src/infrastructure/web"
 	mutantHandler "github/meli/src/mutant/handler"
 	"github/meli/src/mutant/repository"
@@ -21,9 +24,11 @@ var logger = log.WithFields(log.Fields{
 	"layer": shared.MainLayer,
 })
 
-func init () {
+func init() {
 	logger.Info("Staring app...")
-	godotenv.Load(".env")
+	godotenv.Load("app.env")
+	envs.SetValuesOnEnvironment()
+	envs.PrintEnvs()
 }
 
 func main() {
@@ -31,16 +36,16 @@ func main() {
 	app := web.ServerInstance()
 	fireStoreInstance := firestore.CreateClient()
 
-   mutantRepository := repository.NewMutantRepository(fireStoreInstance)
-   
+	mutantRepository := repository.NewMutantRepository(fireStoreInstance)
+
 	healthHandler.NewHealthHandler(app, healthUseCase.NewHealthUseCase())
 
 	adasd := mutantUsecase.NewMutantUsecase(mutantRepository)
 
-	mutantHandler.NewMutantHandler(app,adasd)
+	mutantHandler.NewMutantHandler(app, adasd)
 
 	server := &http.Server{
-		Addr:         ":8080",
+		Addr:         fmt.Sprintf(":%s", viper.GetString("PORT")),
 		ReadTimeout:  3 * time.Minute,
 		WriteTimeout: 3 * time.Minute,
 	}
