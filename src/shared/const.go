@@ -8,8 +8,4 @@ const (
 	SqlLayer = "sql_layer"
 )
 
-const (
-	MutantTable = "stats"
-)
-
 

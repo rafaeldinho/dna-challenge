@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 
+	"github/meli/src/domain/model"
 	"github/meli/src/mutant/usecase"
 )
 
@@ -29,8 +30,13 @@ func (h *mutanHandler) GetStats(c echo.Context) error {
 }
 
 func (h *mutanHandler) IsMutant(c echo.Context) error {
-	var ada []string
-	rst, err := h.useCase.IsMutant(ada)
+	request := new(model.RequestMutant)
+	if err := c.Bind(request); err != nil {
+		c.Logger().Error(err)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err})
+	}
+
+	rst, err := h.useCase.IsMutant(request)
 	if err != nil {
 		c.Logger().Error(err)
 		return echo.NewHTTPError(http.StatusInternalServerError, echo.Map{"error": err})
