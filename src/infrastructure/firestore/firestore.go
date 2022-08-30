@@ -5,10 +5,11 @@ import (
 	"log"
 
 	"cloud.google.com/go/firestore"
+	"github.com/spf13/viper"
 )
 
 func CreateClient() *firestore.Client {
-	projectID := "control-gastos-296302"
+	projectID := viper.GetString("PROJECT_ID")
 
 	client, err := firestore.NewClient(ctx.Background(), projectID)
 	if err != nil {
