@@ -3,11 +3,11 @@ package repository
 import (
 	"github/meli/src/domain/model"
 
-	"cloud.google.com/go/firestore"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type mutantRepository struct {
-	firestore *firestore.Client
+	client *mongo.Client
 }
 
 type MutantRepository interface {
@@ -15,6 +15,6 @@ type MutantRepository interface {
 	GetCountByFlag() ([]model.Mutant, error)
 }
 
-func NewMutantRepository(firestore *firestore.Client) *mutantRepository {
-	return &mutantRepository{firestore: firestore}
+func NewMutantRepository(client *mongo.Client) *mutantRepository {
+	return &mutantRepository{client: client}
 }
