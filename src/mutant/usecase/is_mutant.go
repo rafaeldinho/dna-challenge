@@ -9,7 +9,7 @@ func (m *mutantUsecase) IsMutant(dna *model.RequestMutant) (*model.Mutant, error
 	// logica loca
 	mutant := &model.Mutant{
 		DNA:      strings.Join(dna.DNA[:], ","),
-		IsMutant: true,
+		IsMutant: false,
 	}
 
 	if err := m.repository.Save(mutant); err != nil {
