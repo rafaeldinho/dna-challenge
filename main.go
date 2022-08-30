@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -41,7 +42,7 @@ func main() {
 	mutantService := mutantUsecase.NewMutantUsecase(mutantRepository)
 	mutantHandler.NewMutantHandler(app, mutantService)
 
-	port := viper.GetString("PORT")
+	port := os.Getenv("PORT")
 
 	if port == "" {
 		port = "8080"
