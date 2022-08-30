@@ -44,8 +44,16 @@ func main() {
 
 	mutantHandler.NewMutantHandler(app, adasd)
 
+	port := viper.GetString("PORT")
+
+	if port == "" {
+		port = ":8080"
+	} else {
+		port = fmt.Sprintf(":%s", viper.GetString("PORT"))
+	}
+
 	server := &http.Server{
-		Addr:         fmt.Sprintf(":%s", viper.GetString("PORT")),
+		Addr:         port,
 		ReadTimeout:  3 * time.Minute,
 		WriteTimeout: 3 * time.Minute,
 	}
