@@ -18,20 +18,19 @@ func (m *mutantUsecase) GetStats() (model.Stats, error) {
 	return model.Stats{
 		CountMutantDNA: mutantCount,
 		CountHumanDNA:  humanCount,
-		Ratio:          2.6,
+		Ratio:          float64(mutantCount) / float64(humanCount),
 	}, nil
 }
 
 func getCountByFlag(list []model.Mutant) (int, int) {
-	var humanCount int
-	var mutantCount int
+	var humanCount = 0
+	var mutantCount = 0
 	for _, m := range list {
 		if m.IsMutant {
-			humanCount++
-		}
-		if !m.IsMutant {
 			mutantCount++
+			continue
 		}
+		humanCount++
 	}
 
 	return humanCount, mutantCount
