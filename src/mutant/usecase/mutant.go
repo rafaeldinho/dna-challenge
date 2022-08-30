@@ -9,7 +9,7 @@ import (
 )
 
 type MutantUsecase interface {
-	IsMutant(dna *model.RequestMutant) (*model.Mutant,error)
+	IsMutant(dna *model.RequestMutant) (*model.Mutant, error)
 	GetStats() (model.Stats, error)
 }
 

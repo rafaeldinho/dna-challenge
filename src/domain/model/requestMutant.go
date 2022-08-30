@@ -1,5 +1,5 @@
 package model
 
-type RequestMutant struct{
+type RequestMutant struct {
 	DNA []string `json:"dna"`
 }

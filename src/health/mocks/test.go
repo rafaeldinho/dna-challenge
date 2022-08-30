@@ -15,7 +15,6 @@ func (m *MockUseCase) GetCheck() model.Health {
 	return mocked.Get(0).(model.Health)
 }
 
-
 func MockHealthObject() model.Health {
 	return model.Health{
 		Status:  "UP",
