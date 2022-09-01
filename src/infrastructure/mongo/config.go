@@ -17,7 +17,7 @@ var logger = log.WithFields(log.Fields{
 	"layer": shared.MainLayer,
 })
 
-func CreateMongoClient() *mongo.Client {
+func MongoInstance() *mongo.Client {
 	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
 	clientOptions := options.Client().ApplyURI(os.Getenv("MONGO_URL")).SetServerAPIOptions(serverAPIOptions)
 
