@@ -7,23 +7,6 @@ Para su correcto uso se requiere poderes de telequinesis y tener el siguiente ar
 * GOLANG
 * GIT
 
-## Docker:
-- PASO 1:
-```bash
-git clone https://github.com/rafaeldinho/meli-challenge
-```
-
-- Paso 2:
-```bash
-importar collection postman dentro del direcorio raiz "files" del proyecto con los distintos multiversos (ambientes local/prod)
-```
-
-- PASO 3: (debe tener docker corriendo)
-```bash
-make docker
-```
-
-## Sin Docker:
 - PASO 1:
 ```bash
 git clone https://github.com/rafaeldinho/meli-challenge
@@ -36,12 +19,21 @@ importar collection postman dentro del direcorio raiz "files" del proyecto con l
 
 - PASO 3:
 ```bash
+make install
+```
+
+- PASO 4:
+```bash
 make run
 ```
 
 ## TEST:
 ```bash
 make test
+```
+
+```bash
+make testcoverage
 ```
 
 ## TEST COVERAGE:
