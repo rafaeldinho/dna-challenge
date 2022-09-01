@@ -28,6 +28,11 @@ func MongoInstance() *mongo.Client {
 		logger.Fatal(err)
 	}
 
+	err = client.Ping(ctx, nil)
+  if err != nil {
+    log.Fatal(err)
+  }
+
 	return client
 
 }

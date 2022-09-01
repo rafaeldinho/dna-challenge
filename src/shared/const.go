@@ -12,3 +12,10 @@ const (
 	DatabaseCollection string = "meli_challenge"
 	MutantCollection   string = "stats_collection"
 )
+
+var DNAMAP = map[string]string{
+	"A": "A",
+	"T": "T",
+	"C": "C",
+	"G": "G",
+}

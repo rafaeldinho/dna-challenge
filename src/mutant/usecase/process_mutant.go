@@ -3,8 +3,14 @@ package usecase
 import (
 	"strings"
 
+	log "github.com/sirupsen/logrus"
+
 	"github/meli/src/domain/model"
+	"github/meli/src/shared"
 )
+
+var matchMap = map[string][]string{}
+var result = make([]string, 0)
 
 func (m *mutantUsecase) ProcessMutant(dna *model.RequestMutant) (*model.Mutant, error) {
 	logger.Info("processing mutant")
@@ -17,23 +23,53 @@ func (m *mutantUsecase) ProcessMutant(dna *model.RequestMutant) (*model.Mutant, 
 		return &model.Mutant{}, err
 	}
 
+	cleanMap()
+	cleanSliceResult()
+	logger.WithFields(log.Fields{"DNA": mutant.DNA, "isMutant": mutant.IsMutant}).Info("DNA saved sucess")
 	return mutant, nil
 }
 
-func isMutant(DNA []string) bool {
-	var counter int = 0
-	var a = [][]string{DNA}
-	var n int = len(a)
-	var m int = len(a[0])
+func cleanMap() {
+	for k := range matchMap {
+		delete(matchMap, k)
+	}
+}
 
-	for i := 0; i <= m+n-2; i++ {
-		for x := 0; x <= i && (x < n) && i-x < m; x++ {
-			counter++
+func cleanSliceResult() {
+	result = nil
+}
+func setValue(key string) {
+	match := make([]string, 0)
+
+	if value, ok := matchMap[key]; ok {
+		match = append(match, value...)
+	} else {
+		cleanMap()
+	}
+
+	match = append(match, key)
+	matchMap[key] = match
+	if len(match) >= 4 {
+		result = append(result, match...)
+	}
+}
+func isMutant(DNA []string) bool {
+	dnaMatris := make([]string, 0)
+	for _, v := range DNA {
+		s := make([]string, 0)
+		for i := 0; i < len(v); i++ {
+			s = append(s, string(v[i]))
 		}
-		for y := m - 1; y >= 0 && i-y >= 0 && i-y < n && i-y > 0; y-- {
-			counter++
+		dnaMatris = append(dnaMatris, s...)
+		logger.Infoln(s)
+	}
+
+	for _, k := range dnaMatris {
+		if _, ok := shared.DNAMAP[k]; ok {
+			setValue(k)
 		}
 	}
 
-	return counter >= 4
+	logger.Infoln((result))
+	return len(result) > 0
 }

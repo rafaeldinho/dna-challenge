@@ -6,6 +6,7 @@ Permite detectar el ADN de una persona mediante un api ingresando su codigo gene
 Para su correcto uso se requiere poderes de telequinesis y tener el siguiente armamentos:
 * GOLANG
 * GIT
+* DOCKER
 
 - PASO 1:
 ```bash
@@ -18,13 +19,9 @@ importar collection postman dentro del direcorio raiz "files" del proyecto con l
 ```
 
 - PASO 3:
+este ultimo paso creara un contenedor con la base de datos y el app
 ```bash
-make install
-```
-
-- PASO 4:
-```bash
-make run
+docker compose up
 ```
 
 ## TEST:
