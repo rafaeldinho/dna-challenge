@@ -38,7 +38,7 @@ func (h *mutanHandler) IsMutant(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, echo.Map{"error": err})
 	}
 
-	rst, err := h.useCase.IsMutant(request)
+	rst, err := h.useCase.ProcessMutant(request)
 	if err != nil {
 		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, echo.Map{"error": err})

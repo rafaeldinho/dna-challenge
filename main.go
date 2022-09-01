@@ -28,9 +28,9 @@ func init() {
 }
 
 func main() {
-
+	// app and db instance
 	app := web.ServerInstance()
-	mongoInstance := mongo.CreateMongoClient()
+	mongoInstance := mongo.MongoInstance()
 
 	// HEALTH SERVICES
 	healthHandler.NewHealthHandler(app, healthUseCase.NewHealthUseCase())

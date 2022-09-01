@@ -46,14 +46,14 @@ func TestMutantHandler(t *testing.T) {
 		rec := httptest.NewRecorder()
 		echoContext := e.NewContext(req, rec)
 
-		useCase.On("IsMutant", mock.Anything).Return(mocks.MockMutant(true), nil)
+		useCase.On("ProcessMutant", mock.Anything).Return(mocks.MockMutant(true), nil)
 
 		healthCheck := NewMutantHandler(e, useCase)
 
 		_ = healthCheck.IsMutant(echoContext)
 
 		assert.Equal(t, http.StatusOK, rec.Code)
-		useCase.AssertCalled(t, "IsMutant", mock.Anything)
+		useCase.AssertCalled(t, "ProcessMutant", mock.Anything)
 	})
 
 	t.Run("when checking is dna Is not Mutant should return an forbidden status", func(t *testing.T) {
@@ -68,14 +68,14 @@ func TestMutantHandler(t *testing.T) {
 		rec := httptest.NewRecorder()
 		echoContext := e.NewContext(req, rec)
 
-		useCase.On("IsMutant", mock.Anything).Return(mocks.MockMutant(false), nil)
+		useCase.On("ProcessMutant", mock.Anything).Return(mocks.MockMutant(false), nil)
 
 		healthCheck := NewMutantHandler(e, useCase)
 
 		_ = healthCheck.IsMutant(echoContext)
 
 		assert.Equal(t, http.StatusForbidden, rec.Code)
-		useCase.AssertCalled(t, "IsMutant", mock.Anything)
+		useCase.AssertCalled(t, "ProcessMutant", mock.Anything)
 	})
 }
 
@@ -107,7 +107,7 @@ func TestMutantHandlerEror(t *testing.T) {
 		rec := httptest.NewRecorder()
 		echoContext := e.NewContext(req, rec)
 
-		useCase.On("IsMutant", mock.Anything).Return(mocks.MockMutant(false), nil)
+		useCase.On("ProcessMutant", mock.Anything).Return(mocks.MockMutant(false), nil)
 
 		healthCheck := NewMutantHandler(e, useCase)
 
@@ -128,7 +128,7 @@ func TestMutantHandlerEror(t *testing.T) {
 		rec := httptest.NewRecorder()
 		echoContext := e.NewContext(req, rec)
 
-		useCase.On("IsMutant", mock.Anything).Return(mocks.MockMutant(false), errors.New("something went worng"))
+		useCase.On("ProcessMutant", mock.Anything).Return(mocks.MockMutant(false), errors.New("something went worng"))
 
 		healthCheck := NewMutantHandler(e, useCase)
 
